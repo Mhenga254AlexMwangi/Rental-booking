@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - Joy Apartments</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Joy Apartments</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/terms">Terms</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Terms and Conditions Content -->
+    <section class="container my-5 pt-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h2 class="display-4 mb-4 fw-bold text-primary text-center">Terms and Conditions</h2>
+                <p class="lead text-muted text-center">Please read these terms and conditions carefully before renting a house at Joy Apartments.</p>
+
+                <div class="terms-content mt-5">
+                    <h3 class="fw-bold text-primary">1. Deposit Amount</h3>
+                    <p class="text-muted">The deposit amount for renting a house is equal to one month's rent. This deposit is refundable under the conditions outlined below.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">2. Rent Payment</h3>
+                    <p class="text-muted">Rent must be paid on or before the agreed date. Failure to pay rent on time will result in a penalty of <strong>200 KES</strong> per day until the payment is made.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">3. Contacting Authority</h3>
+                    <p class="text-muted">Before making any payment, you must first contact the management or authority to confirm availability and payment details.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">4. Deposit Refund</h3>
+                    <p class="text-muted">The deposit will be refunded in full if you notify the management at least <strong>one month</strong> before relocating. Failure to provide this notice may result in partial or no refund of the deposit.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">5. Electricity</h3>
+                    <p class="text-muted">Electricity is provided through <strong>prepaid tokens</strong>. Tenants are responsible for purchasing their own tokens to ensure uninterrupted power supply.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">6. Water Bills</h3>
+                    <p class="text-muted">Tenants are responsible for paying their <strong>monthly water bills</strong>. The bills are calculated based on usage and must be paid directly to the water provider.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">7. Garbage Disposal</h3>
+                    <p class="text-muted">A <strong>garbage disposal fee</strong> is charged monthly to cover waste collection and disposal services. This fee is mandatory for all tenants.</p>
+
+                    <h3 class="fw-bold text-primary mt-4">8. General Rules</h3>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>No illegal activities are allowed on the premises.</li>
+                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Tenants are responsible for maintaining cleanliness and order.</li>
+                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Any damages to the property will be deducted from the deposit.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2023 Joy Apartments. All rights reserved.</p>
+            <div class="social-icons mt-3">
+                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Font Awesome -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
