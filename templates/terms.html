@@ -6,16 +6,202 @@
     <title>Terms and Conditions - Joy Apartments</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-color: #495057;
+            --highlight-color: #f72585;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: #fafafa;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            margin: 0 0.5rem;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9) 0%, rgba(76, 201, 240, 0.9) 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .terms-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-top: -5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .term-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.03);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .term-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .term-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            line-height: 36px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(247, 37, 133, 0.1) 0%, rgba(76, 201, 240, 0.1) 100%);
+            border-left: 4px solid var(--highlight-color);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin: 2rem 0;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1a1a1a 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 768px) {
+            .terms-card {
+                padding: 1.5rem;
+            }
+            
+            .hero-section {
+                padding: 5rem 0 3rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/">Joy Apartments</a>
+            <a class="navbar-brand" href="/">
+                <span style="color: var(--primary-color);">Joy</span> Apartments
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,60 +224,162 @@
         </div>
     </nav>
 
-    <!-- Terms and Conditions Content -->
-    <section class="container my-5 pt-5">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <h2 class="display-4 mb-4 fw-bold text-primary text-center">Terms and Conditions</h2>
-                <p class="lead text-muted text-center">Please read these terms and conditions carefully before renting a house at Joy Apartments.</p>
-
-                <div class="terms-content mt-5">
-                    <h3 class="fw-bold text-primary">1. Deposit Amount</h3>
-                    <p class="text-muted">The deposit amount for renting a house is equal to one month's rent. This deposit is refundable under the conditions outlined below.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">2. Rent Payment</h3>
-                    <p class="text-muted">Rent must be paid on or before the agreed date. Failure to pay rent on time will result in a penalty of <strong>200 KES</strong> per day until the payment is made.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">3. Contacting Authority</h3>
-                    <p class="text-muted">Before making any payment, you must first contact the management or authority to confirm availability and payment details.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">4. Deposit Refund</h3>
-                    <p class="text-muted">The deposit will be refunded in full if you notify the management at least <strong>one month</strong> before relocating. Failure to provide this notice may result in partial or no refund of the deposit.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">5. Electricity</h3>
-                    <p class="text-muted">Electricity is provided through <strong>prepaid tokens</strong>. Tenants are responsible for purchasing their own tokens to ensure uninterrupted power supply.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">6. Water Bills</h3>
-                    <p class="text-muted">Tenants are responsible for paying their <strong>monthly water bills</strong>. The bills are calculated based on usage and must be paid directly to the water provider.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">7. Garbage Disposal</h3>
-                    <p class="text-muted">A <strong>garbage disposal fee</strong> is charged monthly to cover waste collection and disposal services. This fee is mandatory for all tenants.</p>
-
-                    <h3 class="fw-bold text-primary mt-4">8. General Rules</h3>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>No illegal activities are allowed on the premises.</li>
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Tenants are responsible for maintaining cleanliness and order.</li>
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Any damages to the property will be deducted from the deposit.</li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero-section text-center animate__animated animate__fadeIn">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Terms & Conditions</h1>
+            <p class="lead mb-4">Your guide to a comfortable stay at Joy Apartments</p>
         </div>
     </section>
 
+    <!-- Terms Content -->
+    <div class="container">
+        <div class="terms-card animate__animated animate__fadeInUp">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">Our Rental Agreement</h2>
+                <p class="text-muted">Please read these terms carefully before renting with us. These conditions ensure a pleasant experience for all our tenants.</p>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">1</span> Deposit Policy</h3>
+                <p>A security deposit equivalent to one month's rent is required upon signing the lease. This deposit is fully refundable provided:</p>
+                <ul class="list-unstyled ps-4">
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> No damages beyond normal wear and tear</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> All rent payments are current</li>
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> Proper notice is given before vacating</li>
+                </ul>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">2</span> Rent Payments</h3>
+                <p>Rent is due on the 1st of each month. We offer a 5-day grace period, after which a late fee of <strong class="text-primary">200 KES</strong> will be applied.</p>
+                <div class="highlight-box">
+                    <h4 class="fw-bold"><i class="fas fa-lightbulb me-2 text-warning"></i> Pro Tip</h4>
+                    <p class="mb-0">Set up automatic payments to avoid late fees and ensure peace of mind.</p>
+                </div>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">3</span> Moving Out</h3>
+                <p>To receive your full deposit refund, please provide written notice at least <strong class="text-primary">30 days</strong> before your intended move-out date. This allows us time to process your request and find new tenants.</p>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">4</span> Utilities</h3>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h5 class="fw-bold"><i class="fas fa-bolt me-2 text-warning"></i> Electricity</h5>
+                        <p>Our apartments use prepaid electricity tokens for convenience and fair usage. Tokens can be purchased at the management office.</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h5 class="fw-bold"><i class="fas fa-tint me-2 text-info"></i> Water</h5>
+                        <p>Water bills are calculated monthly based on meter readings and must be paid directly to the water provider by the 15th of each month.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">5</span> Additional Fees</h3>
+                <p>To maintain our high standards, we charge a monthly service fee that covers:</p>
+                <ul class="list-unstyled ps-4">
+                    <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i> Garbage collection and disposal</li>
+                </ul>
+            </div>
+
+            <div class="term-item">
+                <h3 class="fw-bold mb-3"><span class="term-number">6</span> Community Rules</h3>
+                <p>We've established these guidelines to ensure all residents enjoy a peaceful living environment:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled ps-4">
+                            <li class="mb-2"><i class="fas fa-volume-off me-2 text-primary"></i> Quiet hours: 10PM - 7AM</li>
+                            <li class="mb-2"><i class="fas fa-parking me-2 text-primary"></i> Designated parking spots only</li>
+                            <li class="mb-2"><i class="fas fa-smoking-ban me-2 text-primary"></i> No smoking in common areas</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled ps-4">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <h4 class="fw-bold mb-3">Have Questions?</h4>
+                <p>Our management team is happy to clarify any of these terms. Contact us for personalized assistance.</p>
+                <a href="/contact" class="btn btn-primary px-4 py-2">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2023 Joy Apartments. All rights reserved.</p>
-            <div class="social-icons mt-3">
-                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Joy Apartments</h3>
+                    <p>Providing quality living spaces with modern amenities and exceptional service since 2010.</p>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="/terms" class="text-white-50 text-decoration-none">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-10">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2023 Joy Apartments. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small mb-0">Designed with <i class="fas fa-heart text-danger"></i> for our residents</p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
     <!-- Bootstrap JS and Font Awesome -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            var backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
