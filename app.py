@@ -273,10 +273,10 @@ def contact():
         return redirect(url_for('contact'))
 
     return render_template('contact.html')
-@app.route('/test')
-def test_page():
-    return "App is live without DB!"
 
+@app.route('/test')
+def test():
+    return "App is live without DB!"
 
     
     
