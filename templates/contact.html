@@ -28,7 +28,7 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             line-height: 1.7;
-            background-color: #fafafa;
+            background-color: #989090;
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -281,7 +281,7 @@
                         </div>
                         <h4 class="fw-bold mb-3">Call Us</h4>
                         <p class="mb-2">Main Office</p>
-                        <p class="fw-bold">+254 123 456 789</p>
+                        <p class="fw-bold"></p>
                         <p class="mb-2">Support</p>
                         <p class="fw-bold">+254 987 654 321</p>
                     </div>
@@ -306,7 +306,7 @@
                         <h4 class="fw-bold mb-3">Visit Us</h4>
                         <p>Kangaru Market</p>
                         <p>Embu, Kenya</p>
-                        <p class="fw-bold">Mon-Fri: 8AM - 5PM</p>
+                        <p class="fw-bold">Mon-Fri: 8AM - 6PM</p>
                     </div>
                 </div>
             </div>
@@ -314,22 +314,23 @@
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <h3 class="fw-bold mb-4">Send Us a Message</h3>
-                    <form>
+                  
+                    <form method="POST" action="/contact">
                         <div class="mb-4">
                             <label for="name" class="form-label fw-bold">Your Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
                         </div>
                         <div class="mb-4">
                             <label for="email" class="form-label fw-bold">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="mb-4">
                             <label for="phone" class="form-label fw-bold">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                            <input type="tel" class="form-control" name="phone" placeholder="Enter your phone number">
                         </div>
                         <div class="mb-4">
                             <label for="subject" class="form-label fw-bold">Subject</label>
-                            <select class="form-select" id="subject" required>
+                            <select class="form-select" name="subject" required>
                                 <option value="" selected disabled>Select a subject</option>
                                 <option value="booking">Booking Inquiry</option>
                                 <option value="support">Support Request</option>
@@ -339,7 +340,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="message" class="form-label fw-bold">Your Message</label>
-                            <textarea class="form-control" id="message" rows="5" placeholder="Type your message here..." required></textarea>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Type your message here..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
@@ -347,14 +348,14 @@
                 <div class="col-lg-6">
                     <h3 class="fw-bold mb-4">Our Location</h3>
                     <div class="map-container mb-4">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.123456789012!2d37.45678901234567!3d-0.543210987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMTInMzEuNiJTIDM3wrAyNyc0NS42IkU!5e0!3m2!1sen!2ske!4v1621234567890" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2824.3102314542775!2d37.45626828291556!3d-0.4967654664028122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18262d96ae1af78d%3A0xefee418dcd12bdda!2sKANGARU%20MARKET!5e0!3m2!1sen!2ske!4v1745907730197!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
                     </div>
                     <div class="bg-light p-4 rounded">
                         <h5 class="fw-bold mb-3">Business Hours</h5>
                         <ul class="list-unstyled">
-                            <li class="mb-2"><strong>Monday - Friday:</strong> 8:00 AM - 5:00 PM</li>
-                            <li class="mb-2"><strong>Saturday:</strong> 9:00 AM - 2:00 PM</li>
-                            <li><strong>Sunday:</strong> Closed</li>
+                            <li class="mb-2"><strong>Monday - Saturday:</strong> 8:00 AM - 6:00 PM</li>
+                            <li class="mb-2"><strong>Sunday:</strong> 2:00 PM - 6:00 PM</li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -402,10 +403,10 @@
             <hr class="my-4 bg-light opacity-10">
             <div class="row">
                 <div class="col-md-6 text-center text-md-start">
-                    <p class="small mb-0">&copy; 2023 Joy Apartments. All rights reserved.</p>
+                    <p class="small mb-0">&copy; 2025 Joy Apartments. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <p class="small mb-0">Designed with <i class="fas fa-heart text-danger"></i> for our residents</p>
+                    <p class="small mb-0">Designed with <i class="fas fa-heart text-danger"></i> for our residents </p> 
                 </div>
             </div>
         </div>

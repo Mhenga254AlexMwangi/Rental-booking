@@ -13,6 +13,57 @@
     
     <!-- External CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        /* Custom CSS for favorites */
+        .love-emoji {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ccc; /* Default gray color */
+            transition: color 0.3s;
+        }
+        
+        .love-emoji.active {
+            color: red; /* Turns red when active/favorited */
+        }
+        
+        .favorite-badge {
+            position: relative;
+        }
+        
+        .favorite-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            
+            .carousel-item .row {
+                flex-direction: column;
+            }
+            
+            .carousel-item .col-md-4 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -30,46 +81,47 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#popular-residences">Property</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                   <li class="nav-item"><a  class="nav-link"href="{{ url_for('terms') }}">Terms and condition</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('terms') }}">Terms and condition</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('about')}}">About Us</a></li>
-                    <li class="nav-item"><a class="btn btn-dark" href="#">Sign Up</a></li>
+                    <li class="nav-item"><a class="btn btn-dark" href="{{ url_for('login') }}">Sign Up</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="text-center text-white d-flex align-items-center" style="background: url('{{ url_for('static', filename='images/bsk.jpg') }}') center/cover; height: 500px;">
+    <header class="hero-section text-center text-white d-flex align-items-center">
         <div class="container">
-            <h1 style="color: black;">Your Perfect Home Waiting For You</h1>
-            <h4 style="color: black;">We help you get your dream house with us.</h4>
-            <a href="#popular-residences" class="btn btn-dark">Explore Now</a>
+            <h1>Your Perfect Home Waiting For You</h1>
+            <h4>We help you get your dream house with us.</h4>
+            <a href="#popular-residences" class="btn btn-primary">Explore Now</a>
         </div>
     </header>
 
     <!-- Search Filter -->
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-md-3">
-                <input type="text" class="form-control" placeholder="Location">
-            </div>
-            <div class="col-md-3">
-                <select class="form-control">
-                    <option>Bedsitter</option>
-                    <option>One bedroom</option>
-                    <option>Two bedroom</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <input type="text" class="form-control" placeholder="Budget">
-            </div>
-            <div class="col-md-3">
-                <button class="btn btn-dark w-100">Search Now</button>
-            </div>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control search-filter" placeholder="Location" data-filter="location">
+        </div>
+        <div class="col-md-3">
+            <select class="form-control search-filter" data-filter="type">
+                <option value="">All Types</option>
+                <option>Bedsitter</option>
+                <option>One bedroom</option>
+                <option>Two bedroom</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control search-filter" placeholder="Max Price (Ksh)" data-filter="price">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-dark w-100" id="searchBtn">Search Now</button>
         </div>
     </div>
+</div>
 
-    <!-- Popular Residences -->
+<!-- Popular Residences -->
 <section id="popular-residences" class="container my-5">
     <h2 class="text-center">Our Popular Residence</h2>
     
@@ -79,45 +131,36 @@
             <!-- Slide 1 -->
             <div class="carousel-item active">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Koimugo" data-type="Two bedroom" data-price="15000">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic1.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/koi5.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
                                 <p>Location: Koimugo</p>
                                 <p>Two Bedroom</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal1">Book Now</button>
-                                <p class="text-end">15000 Ksh per month</p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal1">view</button>
+                                <p class="text-end"><b>15000 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Kangaru" data-type="Bedsitter" data-price="5500">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic2.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/kang1.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
                                 <p>Location: Kangaru</p>
                                 <p>Bedsitter</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal2">Book Now</button>
-                                <p class="text-end">5000 Ksh per month</p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal2">view</button>
+                                <p class="text-end"><b>5500 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Gakwegori" data-type="Bedsitters" data-price="4500">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic3.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/gt3.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
                                 <p>Location: Gakwegori (G-town)</p>
-                                <p>One Bedroom</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal3">Book Now</button>
-                                <p class="text-end">9000 Ksh per month</p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <p>Bedsitters</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal3">view</button>
+                                <p class="text-end"><b>4500 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
@@ -127,45 +170,36 @@
             <!-- Slide 2 -->
             <div class="carousel-item">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Gakwegori" data-type="Bedsitters" data-price="4500">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic4.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/gt4.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
-                                <p>Location: Nairobi</p>
-                                <p>Three Bedroom</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal4">Book Now</button>
-                                <p class="text-end">25000 Ksh per month</p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <p>Location: Gakwegori(G-town)</p>
+                                <p>Bedsitters</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal4">view</button>
+                                <p class="text-end"><b>4500 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Kangaru" data-type="Bedsitters" data-price="5500">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic5.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/kang3.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
-                                <p>Location: Mombasa</p>
-                                <p>Two Bedroom</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal5">Book Now</button>
-                                <p class="text-end">18000 Ksh per month</p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <p>Location: kangaru</p>
+                                <p>Bedsitters</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal5">view</button>
+                                <p class="text-end"><b>5500 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 property-card" data-location="Koimugo" data-type="Two bedroom" data-price="10000">
                         <div class="card">
-                            <img src="{{ url_for('static', filename='images/pic6.png') }}" class="card-img-top" alt="House">
+                            <img src="{{ url_for('static', filename='images/koi3.jpeg') }}" class="card-img-top" alt="House">
                             <div class="card-body">
-                                <p>Location: Kisumu</p>
-                                <p>One Bedroom</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal6">Book Now</button>
-                                <p class="text-end" style="color: rgb(7, 138, 7); font-weight: 200;"><b>10000 Ksh per month</b></p>
-                                <div class="text-end">
-                                    <span class="love-emoji" onclick="toggleFavorite(this)">❤️</span>
-                                </div>
+                                <p>Location: Koimugo</p>
+                                <p>Two bedroom</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#houseModal6">view</button>
+                                <p class="text-end"><b>10000 Ksh per month</b></p>
                             </div>
                         </div>
                     </div>
@@ -185,7 +219,11 @@
     </div>
 </section>
 
+
+    <!-- JavaScript for Filtering -->
+
 <!-- Modal for House Details -->
+<!-- Modal 1 (Koimugo) -->
 <div class="modal fade" id="houseModal1" tabindex="-1" aria-labelledby="houseModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -194,16 +232,24 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Carousel for House Images -->
+                <!-- Carousel for House Images (Unique ID: houseCarousel1) -->
                 <div id="houseCarousel1" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ url_for('static', filename='images/pic1.png') }}" class="d-block w-100" alt="House Image 1">
+                            <img src="{{ url_for('static', filename='images/koi1.jpeg') }}" class="d-block w-100" alt="House Image 1">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ url_for('static', filename='images/pic2.png') }}" class="d-block w-100" alt="House Image 2">
+                            <img src="{{ url_for('static', filename='images/koi3.jpeg') }}" class="d-block w-100" alt="House Image 2">
                         </div>
-                        <!-- Add more images as needed -->
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi4.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi5.jpeg') }}" class="d-block w-100" alt="House Image 5">
+                        </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel1" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -222,9 +268,8 @@
                     
                     <h5>Amenities</h5>
                     <ul>
-                        <li>Fully furnished</li>
+                        
                         <li>High-speed internet</li>
-                        <li>Recreational facilities</li>
                     </ul>
 
                     <h5>Location Details</h5>
@@ -239,30 +284,36 @@
     </div>
 </div>
 
-<div class="modal fade" id="houseModal2" tabindex="-1" aria-labelledby="houseModalLabel1" aria-hidden="true">
+<!-- Modal 2 (Kangaru) -->
+<div class="modal fade" id="houseModal2" tabindex="-1" aria-labelledby="houseModalLabel2" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="houseModalLabel1">Two Bedroom in Koimugo</h5>
+                <h5 class="modal-title" id="houseModalLabel2">Bedsitters in Kangaru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Carousel for House Images -->
-                <div id="houseCarousel1" class="carousel slide" data-bs-ride="carousel">
+                <!-- Carousel for House Images (Unique ID: houseCarousel2) -->
+                <div id="houseCarousel2" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ url_for('static', filename='images/pic1.png') }}" class="d-block w-100" alt="House Image 1">
+                            <img src="{{ url_for('static', filename='images/kang4.jpeg') }}" class="d-block w-100" alt="House Image 1">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ url_for('static', filename='images/pic2.png') }}" class="d-block w-100" alt="House Image 2">
+                            <img src="{{ url_for('static', filename='images/kang3.jpeg') }}" class="d-block w-100" alt="House Image 2">
                         </div>
-                        <!-- Add more images as needed -->
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/kang2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/kang1.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel1" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel2" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel1" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel2" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -271,17 +322,16 @@
                 <!-- House Details -->
                 <div class="mt-4">
                     <h5>Description</h5>
-                    <p>This spacious two-bedroom apartment is located in Koimugo. It features modern amenities, ample parking, and 24/7 security.</p>
+                    <p>These are spacious bedsitters located in Kangaru market. They feature modern amenities, ample parking, and 24/7 security.</p>
                     
                     <h5>Amenities</h5>
                     <ul>
-                        <li>Fully furnished</li>
+                       
                         <li>High-speed internet</li>
-                        <li>Recreational facilities</li>
                     </ul>
 
                     <h5>Location Details</h5>
-                    <p>Koimugo, Embu County</p>
+                    <p>Kangaru, Embu County</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -292,30 +342,213 @@
     </div>
 </div>
 
-<div class="modal fade" id="houseModal3" tabindex="-1" aria-labelledby="houseModalLabel1" aria-hidden="true">
+<!-- Modal 3 (Gakwegori) -->
+<div class="modal fade" id="houseModal3" tabindex="-1" aria-labelledby="houseModalLabel3" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="houseModalLabel1">Two Bedroom in Koimugo</h5>
+                <h5 class="modal-title" id="houseModalLabel3">Bedsitters in Gakwegori (G-town)</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Carousel for House Images -->
-                <div id="houseCarousel1" class="carousel slide" data-bs-ride="carousel">
+                <!-- Carousel for House Images (Unique ID: houseCarousel3) -->
+                <div id="houseCarousel3" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ url_for('static', filename='images/pic1.png') }}" class="d-block w-100" alt="House Image 1">
+                            <img src="{{ url_for('static', filename='images/gt3.jpeg') }}" class="d-block w-100" alt="House Image 1">
                         </div>
                         <div class="carousel-item">
-                            <img src="{{ url_for('static', filename='images/pic2.png') }}" class="d-block w-100" alt="House Image 2">
+                            <img src="{{ url_for('static', filename='images/gt4.jpeg') }}" class="d-block w-100" alt="House Image 2">
                         </div>
-                        <!-- Add more images as needed -->
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/gt2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/gt1.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel1" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel3" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel1" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel3" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- House Details -->
+                <div class="mt-4">
+                    <h5>Description</h5>
+                    <p>These are spacious bedsitters located in Gakwegori (G-town). They feature modern amenities and 24/7 security.</p>
+                    
+                    <h5>Amenities</h5>
+                    <ul>
+                       
+                        <li>High-speed internet</li>
+                    </ul>
+
+                    <h5>Location Details</h5>
+                    <p>Gakwegori (G-town), Embu County</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Book Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 4 (Gakwegori - Slide 2) -->
+<div class="modal fade" id="houseModal4" tabindex="-1" aria-labelledby="houseModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="houseModalLabel4">Bedsitters in Gakwegori (G-town)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Carousel for House Images (Unique ID: houseCarousel4) -->
+                <div id="houseCarousel4" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='images/gt4.jpeg') }}" class="d-block w-100" alt="House Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/gt3.jpeg') }}" class="d-block w-100" alt="House Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/gt2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/gt1.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel4" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel4" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- House Details -->
+                <div class="mt-4">
+                    <h5>Description</h5>
+                    <p>These are spacious bedsitters located in Gakwegori (G-town). They feature modern amenities and 24/7 security.</p>
+                    
+                    <h5>Amenities</h5>
+                    <ul>
+                        
+                        <li>High-speed internet</li>
+                    </ul>
+
+                    <h5>Location Details</h5>
+                    <p>Gakwegori (G-town), Embu County</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Book Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 5 (Kangaru - Slide 2) -->
+<div class="modal fade" id="houseModal5" tabindex="-1" aria-labelledby="houseModalLabel5" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="houseModalLabel5">Bedsitters in Kangaru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Carousel for House Images (Unique ID: houseCarousel5) -->
+                <div id="houseCarousel5" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='images/kang3.jpeg') }}" class="d-block w-100" alt="House Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/kang4.jpeg') }}" class="d-block w-100" alt="House Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/kang2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/kang1.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel5" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel5" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+                <!-- House Details -->
+                <div class="mt-4">
+                    <h5>Description</h5>
+                    <p>These are spacious bedsitters located in Kangaru market. They feature modern amenities, ample parking, and 24/7 security.</p>
+                    
+                    <h5>Amenities</h5>
+                    <ul>
+                       
+                        <li>High-speed internet</li>
+                    </ul>
+
+                    <h5>Location Details</h5>
+                    <p>Kangaru, Embu County</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Book Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 6 (Koimugo - Slide 2) -->
+<div class="modal fade" id="houseModal6" tabindex="-1" aria-labelledby="houseModalLabel6" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="houseModalLabel6">Two Bedroom in Koimugo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Carousel for House Images (Unique ID: houseCarousel6) -->
+                <div id="houseCarousel6" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='images/koi3.jpeg') }}" class="d-block w-100" alt="House Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi1.jpeg') }}" class="d-block w-100" alt="House Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi2.jpeg') }}" class="d-block w-100" alt="House Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi4.jpeg') }}" class="d-block w-100" alt="House Image 4">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='images/koi5.jpeg') }}" class="d-block w-100" alt="House Image 5">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#houseCarousel6" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#houseCarousel6" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -328,9 +561,8 @@
                     
                     <h5>Amenities</h5>
                     <ul>
-                        <li>Fully furnished</li>
+                       
                         <li>High-speed internet</li>
-                        <li>Recreational facilities</li>
                     </ul>
 
                     <h5>Location Details</h5>
@@ -344,7 +576,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Repeat the modal for other houses (houseModal2, houseModal3, etc.) -->
      <!-- Featured Properties -->
@@ -353,31 +584,31 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img src="{{ url_for('static', filename='images/resid1.png') }}" class="card-img-top" alt="Featured Property">
+                    <img src="{{ url_for('static', filename='images/dis.jpeg') }}" class="card-img-top" alt="Featured Property">
                     <div class="card-body">
-                        <h5 class="card-title">Luxury Apartment</h5>
-                        <p class="card-text">Located in Kangaru, this apartment offers modern amenities.</p>
-                        <p class="text-end"> Kshs 5500 per  month</p>
+                        <h1 class="card-title">AMM</h1>
+                        <p class="card-text">Located in Koimugo, this apartment offers modern amenities.</p>
+                        <p class="text-end">  </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="{{ url_for('static', filename='images/resid2.png') }}" class="card-img-top" alt="Featured Property">
+                    <img src="{{ url_for('static', filename='images/Amm.jpeg') }}" class="card-img-top" alt="Featured Property">
                     <div class="card-body">
-                        <h5 class="card-title">Cozy Bedsitter</h5>
-                        <p class="card-text">Perfect for singles or couples, this bedsitter is fully furnished.</p>
-                        <p class="text-end"> Kshs 6000 per month</p>
+                        <h1 class="card-title">SMM</h1>
+                        <p class="card-text">Perfect for singles or couples, bedsitters and onebedroom located at kangaru.</p>
+                        <p class="text-end"> </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="{{ url_for('static', filename='images/resid3.png') }}" class="card-img-top" alt="Featured Property">
+                    <img src="{{ url_for('static', filename='images/gt3.jpeg') }}" class="card-img-top" alt="Featured Property">
                     <div class="card-body">
-                        <h5 class="card-title">Mw</h5>
-                        <p class="card-text">Enjoy luxury living in this spacious villa with a private pool.</p>
-                        <p class="text-end">Kshs 5000 per month</p>
+                        <h1 class="card-title">Bedsitters</h1>
+                        <p class="card-text">Enjoy luxury living in this spacious Bedsitters in G-town with fast internet.</p>
+                       
                     </div>
                 </div>
             </div>
@@ -393,7 +624,7 @@
                 <div class="services-card text-center">
                     <i class="fas fa-shield-alt"></i>
                     <h5>24/7 Security</h5>
-                    <p>All our apartments are equipped with CCTV cameras, a dedicated watchman, and ample parking to ensure your safety and peace of mind.</p>
+                    <p>All our apartments are equipped with CCTV cameras, a dedicated watchman, and ample parking to ensure your safety .</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -427,7 +658,7 @@
                 <h3 class="mt-3">Joy </h3>
                 <p class="lead">Meet Joy, our dedicated agent with over 5 years of experience in real estate. She is passionate about helping you find your dream home.</p>
                 <p>For any inquiries, feel free to contact Joy directly:</p>
-                <p><strong>Phone:</strong> +254 712 345 678</p>
+                <p><strong>Phone:</strong> +254 719643848</p>
                 <p><strong>Email:</strong> joy@joyapartments.com</p>
                 <a href="{{ url_for('contact') }}" class="btn btn-dark">Contact Joy</a>
             </div>
@@ -461,33 +692,100 @@
     <!-- Comment Section -->
     <section class="container my-5">
         <h2 class="text-center">Leave a Comment</h2>
-        <div class="comment-section">
-            <textarea placeholder="Write your comment here..." rows="4"></textarea>
-            <button class="btn btn-primary">Submit</button>
+        <div class="comment-section mb-4">
+            <form method="POST">
+                <textarea name="comment" placeholder="Write your comment here..." rows="4" class="form-control mb-2" required></textarea>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    
+        <div class="latest-comments">
+            <h4>Latest Comments</h4>
+            {% for comment in comments %}
+                <div class="alert alert-secondary">
+                    {{ comment.text }} <br>
+                    <small class="text-muted">{{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                </div>
+            {% else %}
+                <p>No recent comments.</p>
+            {% endfor %}
         </div>
     </section>
-
     <!-- Footer -->
-    <footer class="text-center">
-        <div class="container">
-            <p>&copy; 2023 Joy Apartments. All rights reserved.</p>
-            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-            <div class="social-icons">
-                <a href="https://wa.me/yourwhatsappnumber" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://facebook.com/yourfacebookpage" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://instagram.com/yourinstagrampage" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
+<footer class="footer">
+    <div class="container text-center">
+        <p>&copy; 2025 Joy's Apartments. All Rights Reserved.</p>
+        <p>Find Your Dream Home With Us. Reliable, Affordable, Comfortable Living Spaces.</p>
+        <div class="social-icons mt-3">
+            <a href="https://wa.me/254719643848?text=Hello%20I%20am%20interested%20in%20your%20property" target="_blank" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://facebook.com/yourfacebookpage" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://instagram.com/yourinstagrampage" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <script>
-        function toggleFavorite(emoji) {
-            emoji.classList.toggle('active');
+        <p class="mt-3">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="#">Contact Support</a>
+        </p>
+    </div>
+</footer>
+<!-- Search Functionality JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchBtn = document.getElementById('searchBtn');
+        const filterInputs = document.querySelectorAll('.search-filter');
+        const propertyCards = document.querySelectorAll('.property-card');
+        
+        function filterProperties() {
+            const filters = {
+                location: document.querySelector('[data-filter="location"]').value.toLowerCase(),
+                type: document.querySelector('[data-filter="type"]').value,
+                price: document.querySelector('[data-filter="price"]').value
+            };
+            
+            propertyCards.forEach(card => {
+                const cardLocation = card.getAttribute('data-location').toLowerCase();
+                const cardType = card.getAttribute('data-type');
+                const cardPrice = parseFloat(card.getAttribute('data-price'));
+                
+                const locationMatch = filters.location === '' || cardLocation.includes(filters.location);
+                const typeMatch = filters.type === '' || cardType === filters.type;
+                const priceMatch = filters.price === '' || cardPrice <= parseFloat(filters.price);
+                
+                if (locationMatch && typeMatch && priceMatch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Update carousel visibility
+            updateCarouselVisibility();
         }
+        
+        function updateCarouselVisibility() {
+            const visibleSlides = document.querySelectorAll('.carousel-item .row .property-card[style="display: block"]');
+            
+            // You might want to add logic here to handle carousel slides
+            // when some properties are filtered out
+        }
+        
+        searchBtn.addEventListener('click', filterProperties);
+        
+        // Allow searching by pressing Enter in any filter input
+        filterInputs.forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filterProperties();
+                }
+            });
+        });
+    });
     </script>
+        
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+ 
 </body>
 </html>

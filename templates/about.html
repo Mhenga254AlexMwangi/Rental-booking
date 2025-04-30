@@ -6,16 +6,266 @@
     <title>About Us - Joy Apartments</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --text-color: #495057;
+            --highlight-color: #f72585;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background-color: #bdb0b0;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95) !important;
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            margin: 0 0.5rem;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .hero-about {
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.9) 0%, rgba(76, 201, 240, 0.9) 100%);
+            color: white;
+            padding: 8rem 0 6rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-about:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .about-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-top: -5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-box {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            background-color: rgba(67, 97, 238, 0.03);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .timeline-dot i {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-img {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            margin: 0 0.3rem;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--dark-color) 0%, #1a1a1a 100%);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        @media (max-width: 768px) {
+            .about-card {
+                padding: 1.5rem;
+            }
+            
+            .hero-about {
+                padding: 6rem 0 4rem;
+            }
+            
+            .icon-box {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/">Joy Apartments</a>
+            <a class="navbar-brand" href="/">
+                <span style="color: var(--primary-color);">Joy</span> Apartments
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,44 +285,198 @@
         </div>
     </nav>
 
-    <!-- About Us Content -->
-    <section class="container my-5 pt-5">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <h2 class="display-4 mb-4 fw-bold text-primary text-center">About Joy Apartments</h2>
-                <p class="lead text-muted text-center">Joy Apartments was founded in 2010 with a mission to provide affordable and secure housing solutions. Over the years, we have grown to become one of the most trusted names in the real estate industry.</p>
-                <p class="text-muted">Our team of dedicated professionals works tirelessly to ensure that every property we offer meets the highest standards of quality and safety. We believe that everyone deserves a place they can call home, and we are committed to making that a reality.</p>
-                
-                <div class="mission-values mt-5">
-                    <h3 class="fw-bold text-primary">Our Mission</h3>
-                    <p class="text-muted">To provide safe, comfortable, and affordable housing solutions for everyone.</p>
-                    
-                    <h3 class="fw-bold text-primary mt-4">Our Values</h3>
-                    <ul class="list-unstyled text-muted">
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Integrity</li>
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Customer Focus</li>
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Innovation</li>
-                        <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Community</li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero-about text-center animate__animated animate__fadeIn">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Our Story</h1>
+            <p class="lead mb-4">Creating homes where memories are made since 2010</p>
         </div>
     </section>
 
+    <!-- About Content -->
+    <div class="container">
+        <div class="about-card animate__animated animate__fadeInUp">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">Welcome to Joy Apartments</h2>
+                <p class="text-muted">Where comfort meets community in perfect harmony</p>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-4">Our Journey</h3>
+                    <p>Founded in 2010, Joy Apartments began with a simple vision: to provide quality housing that people could truly call home. What started as a single building has grown into a thriving community of happy residents.</p>
+                    <p>Over the years, we've carefully expanded while maintaining our commitment to affordability, security, and comfort. Our properties are designed with modern living in mind, offering all the amenities you need for a convenient lifestyle.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="ratio ratio-16x9">
+                        <img src="{{ url_for('static', filename='images/Amm.jpeg') }}" alt="Flat">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box h-100">
+                        <div class="icon-box mx-auto">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4 class="text-center fw-bold mb-3">Our Mission</h4>
+                        <p class="text-center">To provide safe, comfortable, and affordable housing solutions that enhance quality of life for all our residents.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box h-100">
+                        <div class="icon-box mx-auto">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4 class="text-center fw-bold mb-3">Our Vision</h4>
+                        <p class="text-center">To be the most trusted name in residential properties, known for exceptional service and community building.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box h-100">
+                        <div class="icon-box mx-auto">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4 class="text-center fw-bold mb-3">Our Values</h4>
+                        <ul class="list-unstyled text-center">
+                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Integrity</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Customer Focus</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Innovation</li>
+                            <li class="mb-2"><i class="fas fa-check-circle me-2 text-primary"></i>Community</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="fw-bold text-center mb-5">Our Milestones</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">2010 - Foundation</h5>
+                        <p>Joy Apartments was founded with our first residential building in Embu, offering 4 quality units.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">2014 - Expansion</h5>
+                        <p>We expanded to our second location, doubling our capacity and introducing new amenities.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-award"></i>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">2025 - Today</h5>
+                        <p>Now serving over 200 happy residents across multiple locations with innovative living solutions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="fw-bold text-center mb-5 mt-5">Meet Our Team</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="team-card">
+                        <img src="{{ url_for('static', filename='images/joy2.jpeg') }}" alt="Team Member" class="team-img">
+                        <div class="p-4">
+                            <h5 class="fw-bold mb-1">JOY</h5>
+                            <p class="text-muted small mb-3">AGENT</p>
+                            <p class="small">With over 5 years in real estate, Joy leads our vision for community-focused living spaces.</p>
+                            <div class="mt-3">
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="text-center mt-5">
+                <h4 class="fw-bold mb-3">Become Part of Our Community</h4>
+                <p>Discover why so many people choose Joy Apartments as their home.</p>
+                <a href="/contact" class="btn btn-primary px-4 py-2">Contact Us Today</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2023 Joy Apartments. All rights reserved.</p>
-            <div class="social-icons mt-3">
-                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Joy Apartments</h3>
+                    <p>Providing quality living spaces with modern amenities and exceptional service since 2010.</p>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="/about" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="/contact" class="text-white-50 text-decoration-none">Contact</a></li>
+                        <li class="mb-2"><a href="/terms" class="text-white-50 text-decoration-none">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h3 class="h5 mb-3">Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-light opacity-10">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2025 Joy Apartments. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small mb-0">Designed with <i class="fas fa-heart text-danger"></i> for our residents</p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
     <!-- Bootstrap JS and Font Awesome -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            var backToTop = document.querySelector('.back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
