@@ -28,7 +28,11 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             line-height: 1.7;
-            background-color: #989090;
+            background-image: url("{{ url_for('static', filename='images/opp.jpg') }}");
+            background-position: center; 
+            background-repeat: no-repeat;
+            background-size: cover;
+
         }
         
         h1, h2, h3, h4, h5, h6 {
@@ -91,7 +95,8 @@
         }
         
         .contact-card {
-            background: white;
+
+            background-color: rgba(255, 255, 255, 0.7);  /* 70% opaque white */
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             padding: 2.5rem;
@@ -281,9 +286,9 @@
                         </div>
                         <h4 class="fw-bold mb-3">Call Us</h4>
                         <p class="mb-2">Main Office</p>
-                        <p class="fw-bold"></p>
+                        <p class="fw-bold">0719643848</p>
                         <p class="mb-2">Support</p>
-                        <p class="fw-bold">+254 987 654 321</p>
+                        <p class="fw-bold">0752533704</p>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -293,9 +298,8 @@
                         </div>
                         <h4 class="fw-bold mb-3">Email Us</h4>
                         <p class="mb-2">General Inquiries</p>
-                        <p class="fw-bold">info@joyapartments.com</p>
-                        <p class="mb-2">Support</p>
-                        <p class="fw-bold">support@joyapartments.com</p>
+                        <p class="fw-bold">joyouskrg@gmail.com</p>
+                        
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -306,7 +310,7 @@
                         <h4 class="fw-bold mb-3">Visit Us</h4>
                         <p>Kangaru Market</p>
                         <p>Embu, Kenya</p>
-                        <p class="fw-bold">Mon-Fri: 8AM - 6PM</p>
+                        <p class="fw-bold">Mon-saturday: 8AM - 6PM</p>
                     </div>
                 </div>
             </div>
@@ -365,10 +369,10 @@
                 <h4 class="fw-bold mb-3">Connect With Us</h4>
                 <p>Follow us on social media for updates and news</p>
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/share/1DigH5uoPu/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.facebook.com/share/1DigH5uoPu/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                   
                 </div>
             </div>
         </div>

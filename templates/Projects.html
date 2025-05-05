@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joy's Apartments - Upcoming Projects</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #4cc9f0;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        /* Hero Section */
+        .projects-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{{ url_for('static', filename='images/construction-bg.jpg') }}") center/cover no-repeat;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .projects-hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .projects-hero h1 {
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* Project Cards */
+        .project-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            background: white;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .project-card .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .project-card .card-body {
+            padding: 25px;
+        }
+        
+        .project-card .progress {
+            height: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .project-card .progress-bar {
+            background-color: var(--primary-color);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--primary-color);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--primary-color);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Call to Action */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 60px 0;
+            margin: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{{ url_for('static', filename='images/construction-pattern.png') }}") center/cover no-repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .projects-hero {
+                padding: 60px 0;
+            }
+            
+            .projects-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::before, .right::before {
+                border: none;
+            }
+            
+            .left, .right {
+                left: 0;
+            }
+        }
+        
+        /* Animation classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Floating animation for under construction badge */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating-badge {
+            animation: float 3s ease-in-out infinite;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        /* New styles for alternating images */
+        .project-gallery {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .project-gallery img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .project-gallery img:last-child {
+            opacity: 0;
+        }
+        
+        .project-description {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('home') }}">
+                <h2 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">JOY'S APARTMENTS</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#popular-residences">Properties</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('projects') }}">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('terms') }}">Terms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="projects-hero text-center">
+        <div class="container">
+            <h1 class="animate__animated animate__fadeInDown">Upcoming Projects in Gakwegori (G-town)</h1>
+            <p class="lead animate__animated animate__fadeInUp animate__delay-1s">Discover our exciting new developments coming soon to Embu County</p>
+            <a href="#projects" class="btn btn-light btn-lg mt-3 animate__animated animate__fadeInUp animate__delay-2s">View Projects</a>
+        </div>
+    </section>
+
+             <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Our Upcoming Developments</h2>
+                <p class="lead">Modern living spaces currently under construction in Gakwegori</p>
+            </div>
+            
+            <!-- Project Gallery with Alternating Images -->
+            <div class="project-gallery animate-on-scroll">
+                <img src="{{ url_for('static', filename='images/bu.png') }}" alt="G-town Apartments View 1" id="projectImage1">
+                <img src="{{ url_for('static', filename='images/flat.png') }}" alt="G-town Apartments View 2" id="projectImage2">
+            </div>
+            
+            <!-- Project Description -->
+            <div class="project-description animate-on-scroll">
+                <h3 class="text-center mb-4">G-town Modern Apartments</h3>
+                <p class="lead text-center">A premium residential development offering comfortable and affordable living spaces</p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <p>This modern apartment complex in Gakwegori (G-town) features a variety of unit types to suit different needs and budgets:</p>
+                        <ul class="list-unstyled">
+                           
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> <strong>One Bedroom</strong> - Spacious 40-45 sqm apartments ideal for couples</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> <strong>Two Bedroom</strong> - Roomy 60-65 sqm family units with en-suite master</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <p>The development includes ample parking space for residents and visitors, with:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Dedicated parking spots for each unit</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Visitor parking area</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> 24/7 security surveillance</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Well-lit parking area</li>
+                        </ul>
+                        <p class="mt-3">All units come with modern finishes and access to shared amenities including a landscaped courtyard and recreational areas.</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+          
+
+    <!-- Project Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Development Features</h2>
+                <p class="lead">What makes our Gakwegori projects special</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="text-center p-4 h-100 bg-white rounded shadow-sm">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                        </div>
+                        <h4>Secure Environment</h4>
+                        <p>24/7 security with CCTV surveillance and gated access for your peace of mind.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="text-center p-4 h-100 bg-white rounded shadow-sm">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-wifi fa-3x text-primary"></i>
+                        </div>
+                        <h4>High-Speed Internet</h4>
+                        <p>Fiber optic internet connectivity available in all units for modern living.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="text-center p-4 h-100 bg-white rounded shadow-sm">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-parking fa-3x text-primary"></i>
+                        </div>
+                        <h4>Ample Parking</h4>
+                        <p>Dedicated parking spaces for residents and visitors with 24/7 security.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="text-center p-4 h-100 bg-white rounded shadow-sm">
+                        <div class="icon-box mb-3">
+                            <i class="fas fa-tint fa-3x text-primary"></i>
+                        </div>
+                        <h4>Water Supply</h4>
+                        <p>Reliable water supply with backup storage tanks for uninterrupted service.</p>
+                    </div>
+                </div>
+                
+           
+        </div>
+    </section>
+
+    <!-- Construction Timeline -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Project Timeline</h2>
+                <p class="lead">Our construction milestones and progress</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>Site Preparation</h3>
+                        <p>January 2024</p>
+                        <p>Clearing and leveling the construction site, setting up temporary facilities.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>Foundation Work</h3>
+                        <p>March 2024</p>
+                        <p>Excavation and pouring of foundations for all buildings in the development.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>Superstructure</h3>
+                        <p>May 2024</p>
+                        <p>Erection of building frames and structural elements for all units.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>Roofing</h3>
+                        <p>July 2025</p>
+                        <p>Installation of roofing systems and waterproofing for all buildings.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>First Phase Completion</h3>
+                        <p>september 2025</p>
+                        <p>Completion of bedsitters and handover to first residents.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right animate-on-scroll">
+                    <div class="timeline-content">
+                        <h3>Final Completion</h3>
+                        <p>December 2025</p>
+                        <p>Project fully completed with all amenities operational.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section text-center py-5">
+        <div class="container">
+            <h2 class="mb-4">Interested in Our Upcoming Projects?</h2>
+            <p class="lead mb-4">Reserve your unit today and be among the first to experience modern living in Gakwegori</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('contact') }}" class="btn btn-light btn-lg">Contact Us</a>
+                <a href="tel:+254719643848" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-phone-alt me-2"></i> Call Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Map -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2>Project Location</h2>
+                <p class="lead">Prime location in Gakwegori (G-town), Embu County</p>
+            </div>
+            
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6739980700804!2d37.458532170672214!3d-0.4873366341615953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18262d0ce97f8605%3A0xa41f8d15ae22274b!2sThe%20Lord&#39;s%20Villa%20Gakwegori!5e0!3m2!1sen!2ske!4v1746434682215!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade" class="rounded shadow"></iframe>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="ps-lg-4">
+                        <h3>Why Gakwegori (G-town)?</h3>
+                        <p>Gakwegori is one of the fastest growing areas in Embu County, offering:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Proximity to major roads and transportation</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Growing commercial and social amenities</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Peaceful residential environment</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Affordable living compared to city centers</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Beautiful natural surroundings</li>
+                        </ul>
+                        <div class="mt-4">
+                            <a href="{{ url_for('contact') }}" class="btn btn-primary me-2">Get Directions</a>
+                            <a href="{{ url_for('contact') }}" class="btn btn-outline-primary">Request Brochure</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3>Joy's Apartments</h3>
+                    <p>Providing quality, affordable housing solutions in Embu County since 2020.</p>
+                    <div class="social-icons mt-3">
+                        <a href="https://www.facebook.com/share/1DigH5uoPu/" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/254719643848?text=Hello%20I%20am%20interested%20in%20your%20property" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h3>Quick Links</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="{{ url_for('home') }}" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="{{ url_for('home') }}#popular-residences" class="text-white text-decoration-none">Properties</a></li>
+                        <li class="mb-2"><a href="{{ url_for('projects') }}" class="text-white text-decoration-none">Projects</a></li>
+                        <li class="mb-2"><a href="{{ url_for('about') }}" class="text-white text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="{{ url_for('contact') }}" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4">
+                    <h3>Contact Info</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Gakwegori, Embu County</li>
+                        <li class="mb-2"><i class="fas fa-phone-alt me-2"></i> +254 719 643848</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> joyouskrg@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Joy's Apartments. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
