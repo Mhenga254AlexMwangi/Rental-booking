@@ -5,7 +5,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`id`)
 );
 
-REATE TABLE `contact_message` (
+CREATE TABLE `contact_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
